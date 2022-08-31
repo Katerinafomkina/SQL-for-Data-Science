@@ -1,11 +1,71 @@
+
+All of the questions in this quiz refer to the open source Chinook Database. 
+Please familiarize yourself with the ER diagram in order to familiarize yourself 
+with the table and column names in order to write accurate queries and get the appropriate answers.
+
 Question 1
---> Select the jobs below that may use SQL in their work (select all that apply).
-✅ QA Engineer
-✅ Backend Developer
-✅ Data Scientist
-✅ DBA
-✅ Data Analyst
+--> Using a subquery, find the names of all the tracks for the album "Californication".
+✅ select t.name
+  from albums a, tracks t
+  where a.title="Californication" and a.albumid=t.albumid
+--> What is the title of the 8th track?
+✅ Porcelain 
 
 Question 2
---> How does a data scientist and DBA differ in how they use SQL?
-✅ DBAs manage the database for other users.
+--> Find the total number of invoices for each customer along with the customer's full name, city and email.
+✅ select c.firstname, c.lastname, c.email, sum(i.invoiceid) as total
+  from customers c, invoices i
+  where c.customerid=i.customerid
+  group by c.customerid
+--> After running the query described above, what is the email address of the 5th person, František Wichterlová?
+    Enter the answer below (feel free to copy and paste).
+✅ frantisekw@jetbrains.com  
+
+Question 3
+--> Retrieve the track name, album, artistID, and trackID for all the albums.
+✅ select t.name, a.title, ar.artistid, t.trackid
+  from albums a, tracks t, artists ar 
+  where a.albumid=t.albumid and ar.artistid=a.artistid
+--> What is the song title of trackID 12 from the "For Those About to Rock We Salute You" album? Enter the answer below.
+✅ Breaking The Rules
+
+Question 4
+--> Retrieve a list with the managers last name, and the last name of the employees who report to him or her.
+✅ SELECT M.LastName AS Manager, 
+       E.LastName AS Employee
+  FROM Employees E INNER JOIN Employees M 
+  ON E.ReportsTo = M.EmployeeID
+--> What is the title of the 8th track?
+✅ Callahan
+✅ King
+
+Question 5
+--> Find the name and ID of the artists who do not have albums. 
+✅ select  ar.name, ar.artistid
+  from artists ar
+  where ar.artistid not in (select artistid from albums)
+--> After running the query described above, two of the records returned have the same last name. Enter that name below.
+✅ Gilberto
+
+Question 6
+--> Use a UNION to create a list of all the employee's and customer's first names and last names ordered by the last name in descending order.
+✅ SELECT FirstName, LastName
+  FROM Employees
+  UNION
+  SELECT FirstName, LastName
+  FROM Customers
+  ORDER BY LastName DESC
+-->After running the query described above, determine what is the last name of the 6th record? Enter it below.
+    Remember to order things in descending order to be sure to get the correct answer.
+✅ Taylor
+
+Question 7
+--> See if there are any customers who have a different city listed in their billing city versus their customer city.
+✅ select c.lastname
+  from customers c, invoices i
+  where c.customerid=i.customerid and c.city<>i.billingcity
+--> Indicate your answer below.
+✅ No customers have a different city listed in their billing city versus customer city.
+
+
+
