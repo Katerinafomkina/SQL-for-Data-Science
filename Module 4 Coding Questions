@@ -1,0 +1,78 @@
+For all of the questions in this quiz, we are using the Chinook database.
+
+Question 1
+--> Pull a list of customer ids with the customer’s full name, and address, along with combining their city and country together. 
+    Be sure to make a space in between these two and make it UPPER CASE. (e.g. LOS ANGELES USA)
+select customerid
+        ,firstname
+        ,lastname
+        ,upper(city||' '||country)
+from customers
+--> What is the city and country result for CustomerID 16?
+✅ MOUNTAIN VIEW USA 
+
+Question 2
+--> Create a new employee user id by combining the first 4 letters of the employee’s first name with the first 2 letters of the employee’s last name. 
+    Make the new field lower case and pull each individual step to show your work.
+select firstname
+        ,lastname
+        ,substr(firstname,1,4)||substr(lastname,1,2) as userid
+from employees
+--> What is the final result for Robert King?
+✅ RobeKi
+
+Question 3
+--> Show a list of employees who have worked for the company for 15 or more years using the current date function. 
+    Sort by lastname ascending.
+select firstname, lastname
+from employees
+where date('now') - hiredate>=15 
+order by(lastname) asc
+--> What is the lastname of the last person on the list returned?
+✅ Peacock
+
+Question 4
+--> Profiling the Customers table, answer the following question.
+select <column_name>
+from customers
+where <column_name> is Null
+--> Are there any columns with null values? Indicate any below. Select all that apply.
+✅ Postal Code
+✅ Fax
+✅ Company
+✅ Phone
+
+Question 5
+--> Find the cities with the most customers and rank in descending order.
+select city, count(*) as nums
+from customers
+group by city
+order by nums desc
+--> Which of the following cities indicate having 2 customers?
+✅ São Paulo
+✅ London
+✅ Mountain View
+
+Question 6
+--> Create a new customer invoice id by combining a customer’s invoice id with their first and last name while ordering your 
+    query in the following order: firstname, lastname, and invoiceID.
+select c.firstname 
+        ,c.lastname
+        ,i.invoiceid
+        ,firstname||lastname||invoiceid as newidd
+from customers c, invoices i 
+where c.customerid=i.customerid and newidd like 'AstridGruber%'
+order by c.firstname, c.lastname, i.invoiceid
+--> Select all of the correct "AstridGruber" entries that are returned in your results below. Select all that apply.
++-----------+----------+-----------+-----------------+
+| FirstName | LastName | InvoiceId | newidd          |
++-----------+----------+-----------+-----------------+
+| Astrid    | Gruber   |        78 | AstridGruber78  |
+| Astrid    | Gruber   |        89 | AstridGruber89  |
+| Astrid    | Gruber   |       144 | AstridGruber144 |
+| Astrid    | Gruber   |       273 | AstridGruber273 |
+| Astrid    | Gruber   |       296 | AstridGruber296 |
+| Astrid    | Gruber   |       318 | AstridGruber318 |
+| Astrid    | Gruber   |       370 | AstridGruber370 |
++-----------+----------+-----------+-----------------+
+
